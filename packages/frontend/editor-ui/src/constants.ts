@@ -78,6 +78,9 @@ export const EXTERNAL_SECRETS_PROVIDER_MODAL_KEY = 'externalSecretsProvider';
 export const COMMUNITY_PLUS_ENROLLMENT_MODAL = 'communityPlusEnrollment';
 export const DELETE_FOLDER_MODAL_KEY = 'deleteFolder';
 export const MOVE_FOLDER_MODAL_KEY = 'moveFolder';
+export const WORKFLOW_ACTIVATION_CONFLICTING_WEBHOOK_MODAL_KEY =
+	'workflowActivationConflictingWebhook';
+export const FROM_AI_PARAMETERS_MODAL_KEY = 'fromAiParameters';
 
 export const COMMUNITY_PACKAGE_MANAGE_ACTIONS = {
 	UNINSTALL: 'uninstall',
@@ -137,6 +140,7 @@ export const EXECUTE_COMMAND_NODE_TYPE = 'n8n-nodes-base.executeCommand';
 export const FORM_TRIGGER_NODE_TYPE = 'n8n-nodes-base.formTrigger';
 export const HTML_NODE_TYPE = 'n8n-nodes-base.html';
 export const HTTP_REQUEST_NODE_TYPE = 'n8n-nodes-base.httpRequest';
+export const HTTP_REQUEST_TOOL_NODE_TYPE = 'n8n-nodes-base.httpRequestTool';
 export const HUBSPOT_TRIGGER_NODE_TYPE = 'n8n-nodes-base.hubspotTrigger';
 export const IF_NODE_TYPE = 'n8n-nodes-base.if';
 export const INTERVAL_NODE_TYPE = 'n8n-nodes-base.interval';
@@ -475,8 +479,8 @@ export const LOCAL_STORAGE_EXPERIMENT_OVERRIDES = 'N8N_EXPERIMENT_OVERRIDES';
 export const LOCAL_STORAGE_HIDE_GITHUB_STAR_BUTTON = 'N8N_HIDE_HIDE_GITHUB_STAR_BUTTON';
 export const LOCAL_STORAGE_NDV_INPUT_PANEL_DISPLAY_MODE = 'N8N_NDV_INPUT_PANEL_DISPLAY_MODE';
 export const LOCAL_STORAGE_NDV_OUTPUT_PANEL_DISPLAY_MODE = 'N8N_NDV_OUTPUT_PANEL_DISPLAY_MODE';
-export const LOCAL_STORAGE_LOGS_2025_SPRING = 'N8N_LOGS_2025_SPRING';
 export const LOCAL_STORAGE_LOGS_PANEL_OPEN = 'N8N_LOGS_PANEL_OPEN';
+export const LOCAL_STORAGE_WORKFLOW_LIST_PREFERENCES_KEY = 'N8N_WORKFLOWS_LIST_PREFERENCES';
 export const BASE_NODE_SURVEY_URL = 'https://n8n-community.typeform.com/to/BvmzxqYv#nodename=';
 export const COMMUNITY_PLUS_DOCS_URL =
 	'https://docs.n8n.io/hosting/community-edition-features/#registered-community-edition';
@@ -559,6 +563,9 @@ export const enum VIEWS {
 	FOLDERS = 'Folders',
 	PROJECTS_FOLDERS = 'ProjectsFolders',
 	INSIGHTS = 'Insights',
+	SHARED_WITH_ME = 'SharedWithMe',
+	SHARED_WORKFLOWS = 'SharedWorkflows',
+	SHARED_CREDENTIALS = 'SharedCredentials',
 }
 
 export const EDITABLE_CANVAS_VIEWS = [VIEWS.WORKFLOW, VIEWS.NEW_WORKFLOW, VIEWS.EXECUTION_DEBUG];
@@ -610,7 +617,10 @@ export const enum WORKFLOW_MENU_ACTIONS {
 	PUSH = 'push',
 	SETTINGS = 'settings',
 	DELETE = 'delete',
+	ARCHIVE = 'archive',
+	UNARCHIVE = 'unarchive',
 	SWITCH_NODE_VIEW_VERSION = 'switch-node-view-version',
+	RENAME = 'rename',
 }
 
 /**
@@ -633,6 +643,7 @@ export const EnterpriseEditionFeature: Record<
 	WorkflowHistory: 'workflowHistory',
 	WorkerView: 'workerView',
 	AdvancedPermissions: 'advancedPermissions',
+	ApiKeyScopes: 'apiKeyScopes',
 };
 
 export const MAIN_NODE_PANEL_WIDTH = 390;
@@ -701,6 +712,7 @@ export const enum STORES {
 	PUSH = 'push',
 	COLLABORATION = 'collaboration',
 	ASSISTANT = 'assistant',
+	BUILDER = 'builder',
 	BECOME_TEMPLATE_CREATOR = 'becomeTemplateCreator',
 	PROJECTS = 'projects',
 	API_KEYS = 'apiKeys',
@@ -721,6 +733,7 @@ export const EXPRESSION_EDITOR_PARSER_TIMEOUT = 15_000; // ms
 
 export const KEEP_AUTH_IN_NDV_FOR_NODES = [
 	HTTP_REQUEST_NODE_TYPE,
+	HTTP_REQUEST_TOOL_NODE_TYPE,
 	WEBHOOK_NODE_TYPE,
 	WAIT_NODE_TYPE,
 	DISCORD_NODE_TYPE,
@@ -729,12 +742,6 @@ export const KEEP_AUTH_IN_NDV_FOR_NODES = [
 ];
 export const MAIN_AUTH_FIELD_NAME = 'authentication';
 export const NODE_RESOURCE_FIELD_NAME = 'resource';
-
-export const CANVAS_AUTO_ADD_MANUAL_TRIGGER_EXPERIMENT = {
-	name: '20_canvas_auto_add_manual_trigger',
-	control: 'control',
-	variant: 'variant',
-};
 
 export const CREDENTIAL_DOCS_EXPERIMENT = {
 	name: '024_credential_docs',
@@ -754,18 +761,17 @@ export const AI_CREDITS_EXPERIMENT = {
 	variant: 'variant',
 };
 
-export const SCHEMA_PREVIEW_EXPERIMENT = {
-	name: '028_schema_preview',
+export const WORKFLOW_BUILDER_EXPERIMENT = {
+	name: '30_workflow_builder',
 	control: 'control',
 	variant: 'variant',
 };
 
 export const EXPERIMENTS_TO_TRACK = [
-	CANVAS_AUTO_ADD_MANUAL_TRIGGER_EXPERIMENT.name,
 	CREDENTIAL_DOCS_EXPERIMENT.name,
 	EASY_AI_WORKFLOW_EXPERIMENT.name,
 	AI_CREDITS_EXPERIMENT.name,
-	SCHEMA_PREVIEW_EXPERIMENT.name,
+	WORKFLOW_BUILDER_EXPERIMENT.name,
 ];
 
 export const WORKFLOW_EVALUATION_EXPERIMENT = '025_workflow_evaluation';
